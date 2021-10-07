@@ -4,7 +4,6 @@ async function lookupCountry({ latitude: lat, longitude: long }) {
 
   const locationData = await fetch(URL).then((res) => res.json());
 
-  //   const [{ formatted_address: country }] = locationData.results.filter(({ types }) => types.includes('country'));
   const [{ address_components: addressComponents }] = locationData.results.filter(({ types }) => types.includes('country'));
 
   const [{ short_name: countryCode }] = addressComponents;

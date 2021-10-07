@@ -60,28 +60,14 @@ const CountrySelect = ({ value, onChange, labels, ...rest }) => (
 
 export default function App() {
   // Set default state for location, phone number and country.
-  const [locationData, setLocationData] = useState({
-    latitude: null,
-    longitude: null,
-    country: '',
-  });
   const [phoneNumber, setPhoneNumber] = useState();
   const [country, setCountry] = useState();
-  const [userCountry, setUserCountry] = useState('');
 
   // Define handler function for browser Navigator API
   async function handleNavigator(pos) {
     const { latitude, longitude } = pos.coords;
 
-    setLocationData({
-      latitude,
-      longitude,
-    });
-
     const userCountryCode = await lookupCountry({ latitude, longitude });
-    const countryName = en[userCountryCode];
-
-    setUserCountry(countryName);
     setCountry(userCountryCode);
   }
 
@@ -100,23 +86,6 @@ export default function App() {
         <div>
           <label htmlFor="phoneNumber">Phone Number</label>
           <Input country={country} value={phoneNumber} onChange={setPhoneNumber} placeholder="Enter phone number" name="phoneNumber" />
-        </div>
-        <div>
-          <p>
-            Selected Country is <span>{country}</span>
-          </p>
-          <p>
-            Phone Number is <span>{phoneNumber}</span>
-          </p>
-          <p>
-            Longitude is <span>{locationData.longitude}</span>
-          </p>
-          <p>
-            Latitude is <span>{locationData.latitude}</span>
-          </p>
-          <p>
-            User country is <span>{userCountry}</span>
-          </p>
         </div>
       </StyledForm>
     </StyledPage>
